@@ -49,9 +49,13 @@ namespace LagWatch
 
             string ivals = (intervalSec > 0 && intervalSec != App.IntervalSec) ? " --interval " + intervalSec : "";
             string host = Environment.GetEnvironmentVariable("LAGWATCH_HOST");
+            // Detached spawn (ShellExecute): the recorder gets its own hidden console and
+            // does NOT die when the parent's window/console closes. With UseShellExecute=false
+            // the child inherited the parent console, so closing the GUI window or console
+            // killed the background recorder too (verified on a second PC).
             ProcessStartInfo pi = new ProcessStartInfo();
-            pi.UseShellExecute = false;
-            pi.CreateNoWindow = true;
+            pi.UseShellExecute = true;
+            pi.WindowStyle = ProcessWindowStyle.Hidden;
             pi.WorkingDirectory = App.Root;
             if (host == "ps1" && !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("LAGWATCH_PS1")))
             {
