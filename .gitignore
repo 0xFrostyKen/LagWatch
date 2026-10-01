@@ -1,0 +1,18 @@
+# build outputs (rebuild with build.ps1 - uses the compiler that ships with Windows)
+LagWatch.exe
+LagWatch.dll
+*.pdb
+
+# package artifact (rebuild with make-dist.ps1)
+LagWatch-portable.zip
+
+# generated per-machine launcher (created by install-startup.ps1)
+LagWatch-bg.vbs
+
+# local test/dev junk
+gui-*.png
+tools/guipid.txt
+*.log
+*.tmp
+
+# runtime data lives in %LOCALAPPDATA%\LagWatch - never inside this folder
